@@ -1,0 +1,22 @@
+{
+    "name": "examenphp/crudrepaso",
+    "description": "Repaso Crud",
+    "license": "free",
+    "authors": [
+        {
+            "name": "jose",
+            "email": "joseantorrecillas97@gmail.com"
+        }
+    ],
+    "config": {
+        "optimize-autoloader": true
+    },
+    "autoload": {
+        "psr-4": {
+            "Clases\\":"src"
+        }
+    },
+    "require": {
+        "fakerphp/faker": "^1.14"
+    }
+}
