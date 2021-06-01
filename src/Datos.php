@@ -14,6 +14,8 @@ class Datos{
             case 'clientes':
                 $this->crearClientes($cantidad);
                 break;
+            case 'hoteles':
+                $this->crearHoteles($cantidad);
         }
     }
     public function crearClientes($c){
@@ -29,5 +31,17 @@ class Datos{
             $cliente->create();
         }
         $cliente=null;
+    }
+
+    public  function crearHoteles($c){
+        $hoteles=new Hoteles();
+        $hoteles->deleteAll();
+        for($i=0; $i<$c;$i++){
+            $hoteles->setNombre(ucwords($this->faker->unique()->sentence(3)));
+            $hoteles->setLocalidad($this->faker->city);
+            $hoteles->setDireccion($this->faker->address);
+            $hoteles->create();
+        }
+        $hoteles=null;
     }
 }

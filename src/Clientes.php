@@ -28,16 +28,48 @@ class Clientes extends Conexion{
         }
     }
 
-    public function read(){
+    public function read($id){
+        $c="select * from clientes where id=:i";
+        $stmt=parent::$conexion->prepare($c);
 
+        try{
+            $stmt->execute([
+                ':i'=>$id
+            ]);
+        }catch(PDOException $ex){
+            die("Error al encontrar id: ".$ex->getMessage());
+        }
+        $fila=$stmt->fetch(PDO::FETCH_OBJ);
+        return $fila;
     }
 
     public function update(){
+        $c="update clientes set nombre=:n , apellidos=:a , email=:m where id=:i";
+        $stmt=parent::$conexion->prepare($c);
 
+        try{
+            $stmt->execute([
+                ':i'=>$this->id,
+                ':n'=>$this->nombre,
+                ':a'=>$this->apellidos,
+                ':m'=>$this->email
+            ]);
+        }catch(PDOException $ex){
+            die("Error al encontrar actualizar: ".$ex->getMessage());
+        }
     }
 
     public function delete(){
+        $c="delete from clientes where id=:i";
+        $stmt=parent::$conexion->prepare($c);
 
+        try{
+            $stmt->execute([
+                ':i'=>$this->id
+            ]);
+        }catch(PDOException $ex){
+            die("Error al borrar cliente: ".$ex->getMessage());
+        }
     }
 
     //------------------------------------------------------------------------
@@ -58,6 +90,20 @@ class Clientes extends Conexion{
         try{
             $stmt->execute([
                 ":e"=>$e
+            ]);
+        }catch(PDOException $ex){
+            die("Error al encontrar");
+        }
+        return $stmt;
+    }
+
+    public function existeEmailId($e, $id){
+        $c = "select * from clientes where email=:e AND id!=:i";
+        $stmt=parent::$conexion->prepare($c);
+        try{
+            $stmt->execute([
+                ":e"=>$e,
+                ":i"=>$id
             ]);
         }catch(PDOException $ex){
             die("Error al encontrar");
