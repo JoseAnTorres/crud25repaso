@@ -16,7 +16,7 @@ class Conexion{
 
     public static function crearConexion(){
         //leemos .config
-        $opciones=parse_ini_file('../.config');
+        $opciones=parse_ini_file(dirname(__DIR__)."/.config");
         $base=$opciones['database'];
         $user=$opciones['user'];
         $pass=$opciones['pass'];

@@ -1,6 +1,6 @@
 <?php
 namespace Clases;
-require '../vendor/autoload.php';
+require dirname(__DIR__).'/vendor/autoload.php';
 
 use Clases\Clientes;
 use Faker\Factory;
