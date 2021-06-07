@@ -84,31 +84,19 @@ class Clientes extends Conexion{
         return $stmt;
     }
 
-    public function existeEmail($e){
-        $c = "select * from clientes where email=:e";
+    public function existeEmail($e, $id=-100){
+        if($id>0)
+            $c = "select * from clientes where email='$e' AND id!=$id";
+        else
+            $c = "select * from clientes where email='$e'";
         $stmt=parent::$conexion->prepare($c);
         try{
-            $stmt->execute([
-                ":e"=>$e
-            ]);
+            $stmt->execute();
         }catch(PDOException $ex){
             die("Error al encontrar");
         }
-        return $stmt;
-    }
-
-    public function existeEmailId($e, $id){
-        $c = "select * from clientes where email=:e AND id!=:i";
-        $stmt=parent::$conexion->prepare($c);
-        try{
-            $stmt->execute([
-                ":e"=>$e,
-                ":i"=>$id
-            ]);
-        }catch(PDOException $ex){
-            die("Error al encontrar");
-        }
-        return $stmt;
+        $fila=$stmt->fetch(PDO::FETCH_OBJ);
+        return ($fila) ? true:false;
     }
 
     /**

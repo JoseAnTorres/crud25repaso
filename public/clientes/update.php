@@ -30,7 +30,7 @@ $datos = $cli->read($id);
          mostrarError("Rellene los campos");
      }
      $cliente = new Clientes();
-     if($cliente->existeEmailId($e, $id)){
+     if($cliente->existeEmail($e, $id)){
          mostrarError("El correo ya existe");
      }
 

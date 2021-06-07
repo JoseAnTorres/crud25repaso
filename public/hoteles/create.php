@@ -18,6 +18,10 @@ function mostrarError($txt){
          mostrarError("Rellene los campos");
      }
      $hotel = new Hoteles();
+     if($hotel->existeNombre($n)){
+         mostrarError("El nombre ya existe");
+     }
+     $hotel = new Hoteles();
      $hotel->setNombre($n);
      $hotel->setLocalidad($l);
      $hotel->setDireccion($d);

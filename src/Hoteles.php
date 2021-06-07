@@ -1,6 +1,7 @@
 <?php
 namespace Clases;
 
+use Hamcrest\Type\IsString;
 use PDOException;
 use PDO;
 
@@ -94,6 +95,42 @@ class Hoteles extends Conexion{
         }
         return $stmt;
     }
+
+    public function existeNombre($n, $id=-100){
+        if($id>0)
+            $c = "select * from hoteles where nombre='$n' AND id!=$id";
+        else
+            $c = "select * from hoteles where nombre='$n'";
+        $stmt=parent::$conexion->prepare($c);
+        try{
+            $stmt->execute();
+        }catch(PDOException $ex){
+            die("Error al encontrar");
+        }
+        $fila=$stmt->fetch(PDO::FETCH_OBJ);
+        return ($fila) ? true:false;
+    }
+
+ /*
+public function existeNombre($n, $id=-100){
+    if($id>0){
+        $c = "select * from hoteles where nombre=:n AND id!=:i";
+        $var=[':n'=>$n, ':i'=>$id];
+    }
+    else{
+        $c = "select * from hoteles where nombre=:n";
+        $var=[':n'=>$n];
+    }
+    $stmt=parent::$conexion->prepare($c);
+    try{
+        $stmt->execute($var);
+    }catch(PDOException $ex){
+        die("Error al encontrar");
+    }
+    $fila=$stmt->fetch(PDO::FETCH_OBJ);
+    return ($fila) ? true:false;
+}
+*/
 
     /**
      * Get the value of id

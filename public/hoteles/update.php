@@ -30,6 +30,9 @@ $datos = $hotelh->read($id);
          mostrarError("Rellene los campos");
      }
      $hotel= new Hoteles();
+     if($hotel->existeNombre($n, $id)){
+         mostrarError("El mombre ya existe");
+     }
 
      $hotel->setNombre($n);
      $hotel->setDireccion($d);
